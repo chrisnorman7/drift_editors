@@ -2,6 +2,8 @@ import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
 import 'package:recase/recase.dart';
 
+import '../types.dart';
+
 /// A class which handles a single [column].
 abstract class ColumnHandler<T extends Object> {
   /// Create an instance.
@@ -30,6 +32,6 @@ abstract class ColumnHandler<T extends Object> {
   Widget getWidget({
     required final BuildContext context,
     required final bool autofocus,
-    required final Future<void> Function(T? newValue) onChanged,
+    required final OnChanged onChanged,
   });
 }

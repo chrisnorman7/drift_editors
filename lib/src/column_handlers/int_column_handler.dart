@@ -1,6 +1,7 @@
 import 'package:backstreets_widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
+import '../types.dart';
 import 'column_handler.dart';
 
 /// A column handler for an [int] [value].
@@ -29,7 +30,7 @@ class IntColumnHandler extends ColumnHandler<int> {
   Widget getWidget({
     required final BuildContext context,
     required final bool autofocus,
-    required final Future<void> Function(int? newValue) onChanged,
+    required final OnChanged<int?> onChanged,
   }) =>
       IntListTile(
         value: value ?? 0,
