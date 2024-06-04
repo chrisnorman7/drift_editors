@@ -3,22 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:recase/recase.dart';
 
 import '../types.dart';
+import 'aggregate_column_handler.dart';
 
 /// A class which handles a single [column].
-abstract class ColumnHandler<T extends Object> {
+abstract class ColumnHandler<T extends Object>
+    extends AggregateColumnHandler<T> {
   /// Create an instance.
   ColumnHandler({
     required this.column,
-    required this.value,
+    required super.value,
     this.title,
     this.onSetNull,
   });
 
   /// The column this handler references.
   final GeneratedColumn<T> column;
-
-  /// The value of this column for the current row.
-  T? value;
 
   /// The title which will be used to show [value].
   ///
@@ -38,7 +37,13 @@ abstract class ColumnHandler<T extends Object> {
   /// Get the appropriate title.
   String getTitle() => title ?? column.name.titleCase;
 
+  /// Get columns for inserting [newValue].
+  @override
+  Map<GeneratedColumn<Object>, Object?> getColumns(final Object newValue) =>
+      {column: newValue};
+
   /// Get a suitable widget to display [value].
+  @override
   Widget getWidget({
     required final BuildContext context,
     required final bool autofocus,

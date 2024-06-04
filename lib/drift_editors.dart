@@ -1,6 +1,7 @@
 /// Classes for generating screens to edit rows in [drift](https://pub.dev/packages/drift).
 library;
 
+export 'src/column_handlers/aggregate_column_handler.dart';
 export 'src/column_handlers/column_handler.dart';
 export 'src/column_handlers/double_column_handler.dart';
 export 'src/column_handlers/int_column_handler.dart';
