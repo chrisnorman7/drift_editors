@@ -51,6 +51,21 @@ class ColumnsListView<T extends Table, R extends DataClass>
                   _onChanged(handler, null, rebuild);
                 }
               },
+              backspaceCallback: () async {
+                final columnDefaultValue = column.defaultValue;
+                final columnClientDefault = column.clientDefault;
+                final Object? defaultValue;
+                if (columnClientDefault != null) {
+                  defaultValue = columnClientDefault();
+                } else if (columnDefaultValue is Constant) {
+                  defaultValue = columnDefaultValue.value;
+                } else {
+                  return;
+                }
+                if (defaultValue != null || column.$nullable) {
+                  await _onChanged(handler, defaultValue, rebuild);
+                }
+              },
               child: handler.getWidget(
                 context: builderContext,
                 autofocus: index == 0,
