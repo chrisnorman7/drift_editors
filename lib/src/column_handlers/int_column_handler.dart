@@ -10,11 +10,15 @@ class IntColumnHandler extends ColumnHandler<int> {
   IntColumnHandler({
     required super.column,
     required super.value,
+    this.subtitle,
     this.min,
     this.max,
     this.modifier = 1,
     super.title,
   });
+
+  /// The subtitle for the [IntListTile].
+  final String? subtitle;
 
   /// The minimum value.
   final int? min;
@@ -36,6 +40,7 @@ class IntColumnHandler extends ColumnHandler<int> {
         value: value ?? 0,
         onChanged: onChanged,
         title: getTitle(),
+        subtitle: subtitle,
         autofocus: autofocus,
         min: min,
         max: max,
