@@ -32,6 +32,6 @@ abstract class ColumnHandler<T extends Object> {
   Widget getWidget({
     required final BuildContext context,
     required final bool autofocus,
-    required final OnChanged onChanged,
+    required final OnChanged<T?> onChanged,
   });
 }
