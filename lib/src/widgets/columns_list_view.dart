@@ -46,9 +46,10 @@ class ColumnsListView<T extends Table, R extends DataClass>
           return RebuildableWidget(
             builder: (final builderContext, final rebuild) => CommonShortcuts(
               deleteCallback: () {
-                if (column.$nullable) {
+                final oldValue = handler.value;
+                if (column.$nullable && oldValue != null) {
                   _onChanged(handler, null, rebuild);
-                  handler.onSetNull?.call();
+                  handler.onSetNull?.call(oldValue);
                 }
               },
               child: handler.getWidget(
