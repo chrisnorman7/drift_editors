@@ -28,8 +28,8 @@ abstract class ColumnHandler<T extends Object> {
 
   /// The function to call before [value] gets set to `null`.
   ///
-  /// When [onSetNull] gets called, [value] is guaranteed to be in a non-null
-  /// state.
+  /// When [onSetNull] gets called, [value] retains its previous value, which
+  /// may or may not be `null`.
   ///
   /// This is useful when [column] represents a foreign key, and you need to
   /// delete the other side of a one-to-one relationship.

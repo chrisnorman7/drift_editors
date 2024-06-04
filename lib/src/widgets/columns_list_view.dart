@@ -48,7 +48,6 @@ class ColumnsListView<T extends Table, R extends DataClass>
               deleteCallback: () {
                 final oldValue = handler.value;
                 if (column.$nullable && oldValue != null) {
-                  handler.onSetNull?.call(database);
                   _onChanged(handler, null, rebuild);
                 }
               },
@@ -70,15 +69,25 @@ class ColumnsListView<T extends Table, R extends DataClass>
     final Object? newValue,
     final VoidCallback rebuild,
   ) async {
-    final query = database.update(tableInfo)
-      ..where(
-        (final table) => primaryKeyColumn.equals(primaryKey),
-      );
-    await query.writeReturning(
-      RawValuesInsertable(
-        {handler.column.name: Variable(newValue)},
-      ),
+    final column = handler.column;
+    assert(
+      column.$nullable || newValue != null,
+      'Column ${tableInfo.actualTableName}.${column.name} is not nullable.',
     );
+    await database.transaction(() async {
+      if (newValue == null) {
+        await handler.onSetNull?.call(database);
+      }
+      final query = database.update(tableInfo)
+        ..where(
+          (final table) => primaryKeyColumn.equals(primaryKey),
+        );
+      await query.writeReturning(
+        RawValuesInsertable(
+          {column.name: Variable(newValue)},
+        ),
+      );
+    });
     handler.value = newValue;
     rebuild();
     onChanged?.call();
