@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
 import '../types.dart';
 
 /// A class which allows aggregating multiple columns into a single value.
@@ -11,6 +12,7 @@ abstract class AggregateColumnHandler<T extends Object> {
     required this.isNullable,
     required this.title,
     this.onSetNull,
+    this.defaultValue = noDefaultValue,
   });
 
   /// The current value to use.
@@ -18,6 +20,12 @@ abstract class AggregateColumnHandler<T extends Object> {
 
   /// Whether [value] is nullable.
   final bool isNullable;
+
+  /// The default value to use.
+  ///
+  /// If [defaultValue] is [noDefaultValue], it will not be possible to set
+  /// [value] to the default with the keyboard.
+  final Object? defaultValue;
 
   /// The title which will be used to show [value].
   ///

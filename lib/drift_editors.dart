@@ -6,6 +6,7 @@ export 'src/column_handlers/column_handler.dart';
 export 'src/column_handlers/double_column_handler.dart';
 export 'src/column_handlers/int_column_handler.dart';
 export 'src/column_handlers/string_column_handler.dart';
+export 'src/constants.dart';
 export 'src/drift_editor_tabbed_scaffold_tab.dart';
 export 'src/screens/drift_editor_screen.dart';
 export 'src/screens/drift_editor_tabbed_scaffold.dart';

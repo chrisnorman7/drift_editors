@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
 import 'package:recase/recase.dart';
 
+import '../constants.dart';
 import '../types.dart';
 import 'aggregate_column_handler.dart';
 
@@ -17,6 +18,7 @@ abstract class ColumnHandler<T extends Object>
   }) : super(
           title: title ?? column.name.titleCase,
           isNullable: column.$nullable,
+          defaultValue: getColumnDefault(column),
         );
 
   /// The column this handler references.

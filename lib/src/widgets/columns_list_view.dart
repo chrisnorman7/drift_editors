@@ -3,6 +3,7 @@ import 'package:drift/drift.dart';
 import 'package:flutter/material.dart' hide Row, Table;
 
 import '../column_handlers/aggregate_column_handler.dart';
+import '../constants.dart';
 import 'rebuildable_widget.dart';
 
 /// A list view to show some columns.
@@ -46,8 +47,14 @@ class ColumnsListView<T extends Table, R extends DataClass>
             builder: (final builderContext, final rebuild) => CommonShortcuts(
               deleteCallback: () {
                 final oldValue = handler.value;
-                if ((handler.isNullable) && oldValue != null) {
+                if (handler.isNullable && oldValue != null) {
                   _onChanged(handler, null, rebuild);
+                }
+              },
+              backspaceCallback: () {
+                final defaultValue = handler.defaultValue;
+                if (defaultValue != noDefaultValue) {
+                  _onChanged(handler, defaultValue, rebuild);
                 }
               },
               child: handler.getWidget(
