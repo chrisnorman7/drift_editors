@@ -16,6 +16,8 @@ class DriftEditorTabbedScaffold<T extends Table, R extends DataClass>
     required this.primaryKeyColumn,
     required this.primaryKey,
     this.onChanged,
+    this.leadingTabs = const [],
+    this.trailingTabs = const [],
     super.key,
   });
 
@@ -37,24 +39,32 @@ class DriftEditorTabbedScaffold<T extends Table, R extends DataClass>
   /// The function to call when the row has changed.
   final VoidCallback? onChanged;
 
+  /// A list of tabs to show before the rendered ones.
+  final List<TabbedScaffoldTab> leadingTabs;
+
+  /// A list of tabs to show after the rendered tabs.
+  final List<TabbedScaffoldTab> trailingTabs;
+
   /// Build the widget.
   @override
   Widget build(final BuildContext context) => TabbedScaffold(
-        tabs: tabs
-            .map(
-              (final tab) => TabbedScaffoldTab(
-                title: tab.title,
-                icon: tab.icon,
-                builder: (final context) => ColumnsListView(
-                  database: database,
-                  tableInfo: tableInfo,
-                  columnHandlers: tab.columnHandlers,
-                  primaryKeyColumn: primaryKeyColumn,
-                  primaryKey: primaryKey,
-                  onChanged: onChanged,
-                ),
+        tabs: [
+          ...leadingTabs,
+          ...tabs.map(
+            (final tab) => TabbedScaffoldTab(
+              title: tab.title,
+              icon: tab.icon,
+              builder: (final context) => ColumnsListView(
+                database: database,
+                tableInfo: tableInfo,
+                columnHandlers: tab.columnHandlers,
+                primaryKeyColumn: primaryKeyColumn,
+                primaryKey: primaryKey,
+                onChanged: onChanged,
               ),
-            )
-            .toList(),
+            ),
+          ),
+          ...trailingTabs,
+        ],
       );
 }
