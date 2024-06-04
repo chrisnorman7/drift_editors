@@ -23,6 +23,10 @@ class RebuildableWidgetState extends State<RebuildableWidget> {
   @override
   Widget build(final BuildContext context) => widget.builder(
         context,
-        () => setState(() {}),
+        () {
+          if (mounted) {
+            setState(() {});
+          }
+        },
       );
 }

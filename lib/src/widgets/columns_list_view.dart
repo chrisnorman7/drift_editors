@@ -60,8 +60,11 @@ class ColumnsListView<T extends Table, R extends DataClass>
               child: handler.getWidget(
                 context: builderContext,
                 autofocus: index == 0,
-                onChanged: (final newValue) =>
-                    _onChanged(handler, newValue, rebuild),
+                onChanged: (final newValue) => _onChanged(
+                  handler,
+                  newValue,
+                  rebuild,
+                ),
               ),
             ),
           );
