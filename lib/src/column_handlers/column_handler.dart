@@ -11,6 +11,7 @@ abstract class ColumnHandler<T extends Object> {
     required this.column,
     required this.value,
     this.title,
+    this.onSetNull,
   });
 
   /// The column this handler references.
@@ -24,6 +25,12 @@ abstract class ColumnHandler<T extends Object> {
   /// If [title] is `null`, then the name of the column will be converted to
   /// title case.
   final String? title;
+
+  /// The function to call if [value] gets set to `null`.
+  ///
+  /// This is useful when [column] represents a foreign key, and you need to
+  /// delete the other side of a one-to-one relationship.
+  final VoidCallback? onSetNull;
 
   /// Get the appropriate title.
   String getTitle() => title ?? column.name.titleCase;

@@ -11,6 +11,7 @@ class StringColumnHandler extends ColumnHandler<String> {
     required super.value,
     required super.column,
     super.title,
+    super.onSetNull,
     this.validator,
   });
 

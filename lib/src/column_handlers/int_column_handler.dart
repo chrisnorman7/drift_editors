@@ -10,11 +10,12 @@ class IntColumnHandler extends ColumnHandler<int> {
   IntColumnHandler({
     required super.column,
     required super.value,
+    super.title,
     this.subtitle,
+    super.onSetNull,
     this.min,
     this.max,
     this.modifier = 1,
-    super.title,
   });
 
   /// The subtitle for the [IntListTile].

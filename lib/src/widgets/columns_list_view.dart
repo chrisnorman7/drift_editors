@@ -1,3 +1,4 @@
+import 'package:backstreets_widgets/widgets.dart';
 import 'package:drift/drift.dart';
 import 'package:flutter/material.dart' hide Row, Table;
 
@@ -41,27 +42,44 @@ class ColumnsListView<T extends Table, R extends DataClass>
   Widget build(final BuildContext context) => ListView.builder(
         itemBuilder: (final _, final index) {
           final handler = columnHandlers[index];
+          final column = handler.column;
           return RebuildableWidget(
-            builder: (final builderContext, final rebuild) => handler.getWidget(
-              context: builderContext,
-              autofocus: index == 0,
-              onChanged: (final newValue) async {
-                final query = database.update(tableInfo)
-                  ..where(
-                    (final table) => primaryKeyColumn.equals(primaryKey),
-                  );
-                await query.writeReturning(
-                  RawValuesInsertable(
-                    {handler.column.name: Variable(newValue)},
-                  ),
-                );
-                handler.value = newValue;
-                rebuild();
-                onChanged?.call();
+            builder: (final builderContext, final rebuild) => CommonShortcuts(
+              deleteCallback: () {
+                if (column.$nullable) {
+                  _onChanged(handler, null, rebuild);
+                  handler.onSetNull?.call();
+                }
               },
+              child: handler.getWidget(
+                context: builderContext,
+                autofocus: index == 0,
+                onChanged: (final newValue) =>
+                    _onChanged(handler, newValue, rebuild),
+              ),
             ),
           );
         },
         itemCount: columnHandlers.length,
       );
+
+  /// The on changed function to use.
+  Future<void> _onChanged(
+    final ColumnHandler handler,
+    final Object? newValue,
+    final VoidCallback rebuild,
+  ) async {
+    final query = database.update(tableInfo)
+      ..where(
+        (final table) => primaryKeyColumn.equals(primaryKey),
+      );
+    await query.writeReturning(
+      RawValuesInsertable(
+        {handler.column.name: Variable(newValue)},
+      ),
+    );
+    handler.value = newValue;
+    rebuild();
+    onChanged?.call();
+  }
 }

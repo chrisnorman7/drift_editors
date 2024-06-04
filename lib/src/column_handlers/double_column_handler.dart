@@ -12,6 +12,7 @@ class DoubleColumnHandler extends ColumnHandler<double> {
     required super.value,
     super.title,
     this.subtitle,
+    super.onSetNull,
     this.decimalPlaces = 2,
     this.min,
     this.max,
