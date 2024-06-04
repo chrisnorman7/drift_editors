@@ -59,6 +59,8 @@ class ColumnsListView<T extends Table, R extends DataClass>
                   defaultValue = columnClientDefault();
                 } else if (columnDefaultValue is Constant) {
                   defaultValue = columnDefaultValue.value;
+                } else if (columnDefaultValue == null) {
+                  defaultValue = null;
                 } else {
                   return;
                 }
