@@ -26,7 +26,7 @@ class StringColumnHandler extends ColumnHandler<String> {
       TextListTile(
         value: value ?? '',
         onChanged: onChanged,
-        header: getTitle(),
+        header: title,
         autofocus: autofocus,
         validator: validator,
       );

@@ -2,7 +2,7 @@ import 'package:backstreets_widgets/screens.dart';
 import 'package:drift/drift.dart';
 import 'package:flutter/material.dart' hide Row, Table;
 
-import '../column_handlers/column_handler.dart';
+import '../column_handlers/aggregate_column_handler.dart';
 import '../widgets/columns_list_view.dart';
 
 /// A screen to edit any table.
@@ -21,7 +21,7 @@ class DriftEditorScreen<T extends Table, R extends DataClass>
   });
 
   /// The column handlers to use.
-  final List<ColumnHandler> columnHandlers;
+  final List<AggregateColumnHandler> columnHandlers;
 
   /// The title of the [SimpleScaffold].
   final String title;

@@ -40,7 +40,7 @@ class IntColumnHandler extends ColumnHandler<int> {
       IntListTile(
         value: value ?? 0,
         onChanged: onChanged,
-        title: getTitle(),
+        title: title,
         subtitle: subtitle,
         autofocus: autofocus,
         min: min,

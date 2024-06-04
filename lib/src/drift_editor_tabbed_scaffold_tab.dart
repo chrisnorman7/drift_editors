@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'column_handlers/column_handler.dart';
+import 'column_handlers/aggregate_column_handler.dart';
 import 'screens/drift_editor_screen.dart';
 
 /// A tab in a [DriftEditorScreen].
@@ -19,5 +19,5 @@ class DriftEditorTabbedScaffoldTab {
   final Widget icon;
 
   /// The columns to include.
-  final List<ColumnHandler> columnHandlers;
+  final List<AggregateColumnHandler> columnHandlers;
 }

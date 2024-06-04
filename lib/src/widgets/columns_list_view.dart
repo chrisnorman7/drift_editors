@@ -2,7 +2,7 @@ import 'package:backstreets_widgets/widgets.dart';
 import 'package:drift/drift.dart';
 import 'package:flutter/material.dart' hide Row, Table;
 
-import '../column_handlers/column_handler.dart';
+import '../column_handlers/aggregate_column_handler.dart';
 import 'rebuildable_widget.dart';
 
 /// A list view to show some columns.
@@ -26,7 +26,7 @@ class ColumnsListView<T extends Table, R extends DataClass>
   final TableInfo<T, R> tableInfo;
 
   /// The columns to show.
-  final List<ColumnHandler> columnHandlers;
+  final List<AggregateColumnHandler> columnHandlers;
 
   /// The primary key column to use.
   final GeneratedColumn<int> primaryKeyColumn;
@@ -42,30 +42,12 @@ class ColumnsListView<T extends Table, R extends DataClass>
   Widget build(final BuildContext context) => ListView.builder(
         itemBuilder: (final _, final index) {
           final handler = columnHandlers[index];
-          final column = handler.column;
           return RebuildableWidget(
             builder: (final builderContext, final rebuild) => CommonShortcuts(
               deleteCallback: () {
                 final oldValue = handler.value;
-                if (column.$nullable && oldValue != null) {
+                if ((handler.isNullable) && oldValue != null) {
                   _onChanged(handler, null, rebuild);
-                }
-              },
-              backspaceCallback: () async {
-                final columnDefaultValue = column.defaultValue;
-                final columnClientDefault = column.clientDefault;
-                final Object? defaultValue;
-                if (columnClientDefault != null) {
-                  defaultValue = columnClientDefault();
-                } else if (columnDefaultValue is Constant) {
-                  defaultValue = columnDefaultValue.value;
-                } else if (columnDefaultValue == null) {
-                  defaultValue = null;
-                } else {
-                  return;
-                }
-                if (defaultValue != null || column.$nullable) {
-                  await _onChanged(handler, defaultValue, rebuild);
                 }
               },
               child: handler.getWidget(
@@ -82,15 +64,10 @@ class ColumnsListView<T extends Table, R extends DataClass>
 
   /// Handle database changes.
   Future<void> _onChanged(
-    final ColumnHandler handler,
+    final AggregateColumnHandler handler,
     final Object? newValue,
     final VoidCallback rebuild,
   ) async {
-    final column = handler.column;
-    assert(
-      column.$nullable || newValue != null,
-      'Column ${tableInfo.actualTableName}.${column.name} is not nullable.',
-    );
     await database.transaction(() async {
       if (newValue == null) {
         await handler.onSetNull?.call(database);
@@ -99,10 +76,12 @@ class ColumnsListView<T extends Table, R extends DataClass>
         ..where(
           (final table) => primaryKeyColumn.equals(primaryKey),
         );
+      final map = handler.getColumns(newValue);
       await query.writeReturning(
-        RawValuesInsertable(
-          {column.name: Variable(newValue)},
-        ),
+        RawValuesInsertable({
+          for (final MapEntry(key: column, value: value) in map.entries)
+            column.name: Variable(value),
+        }),
       );
     });
     handler.value = newValue;

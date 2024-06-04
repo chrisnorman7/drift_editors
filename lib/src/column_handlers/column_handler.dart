@@ -12,34 +12,19 @@ abstract class ColumnHandler<T extends Object>
   ColumnHandler({
     required this.column,
     required super.value,
-    this.title,
-    this.onSetNull,
-  });
+    final String? title,
+    super.onSetNull,
+  }) : super(
+          title: title ?? column.name.titleCase,
+          isNullable: column.$nullable,
+        );
 
   /// The column this handler references.
   final GeneratedColumn<T> column;
 
-  /// The title which will be used to show [value].
-  ///
-  /// If [title] is `null`, then the name of the column will be converted to
-  /// title case.
-  final String? title;
-
-  /// The function to call before [value] gets set to `null`.
-  ///
-  /// When [onSetNull] gets called, [value] retains its previous value, which
-  /// may or may not be `null`.
-  ///
-  /// This is useful when [column] represents a foreign key, and you need to
-  /// delete the other side of a one-to-one relationship.
-  final Future<void> Function(GeneratedDatabase database)? onSetNull;
-
-  /// Get the appropriate title.
-  String getTitle() => title ?? column.name.titleCase;
-
   /// Get columns for inserting [newValue].
   @override
-  Map<GeneratedColumn<Object>, Object?> getColumns(final Object newValue) =>
+  Map<GeneratedColumn<Object>, Object?> getColumns(final T? newValue) =>
       {column: newValue};
 
   /// Get a suitable widget to display [value].

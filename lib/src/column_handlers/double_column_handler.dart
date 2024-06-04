@@ -44,7 +44,7 @@ class DoubleColumnHandler extends ColumnHandler<double> {
       DoubleListTile(
         value: value ?? 0.0,
         onChanged: onChanged,
-        title: getTitle(),
+        title: title,
         subtitle: subtitle,
         autofocus: autofocus,
         decimalPlaces: decimalPlaces,
