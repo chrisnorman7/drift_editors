@@ -30,7 +30,8 @@ abstract class ColumnHandler<T extends Object> {
   ///
   /// This is useful when [column] represents a foreign key, and you need to
   /// delete the other side of a one-to-one relationship.
-  final Future<void> Function(T oldValue)? onSetNull;
+  final Future<void> Function(GeneratedDatabase database, T oldValue)?
+      onSetNull;
 
   /// Get the appropriate title.
   String getTitle() => title ?? column.name.titleCase;

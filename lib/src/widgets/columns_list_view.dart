@@ -49,7 +49,7 @@ class ColumnsListView<T extends Table, R extends DataClass>
                 final oldValue = handler.value;
                 if (column.$nullable && oldValue != null) {
                   _onChanged(handler, null, rebuild);
-                  handler.onSetNull?.call(oldValue);
+                  handler.onSetNull?.call(database, oldValue);
                 }
               },
               child: handler.getWidget(
