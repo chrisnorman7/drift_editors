@@ -48,8 +48,8 @@ class ColumnsListView<T extends Table, R extends DataClass>
               deleteCallback: () {
                 final oldValue = handler.value;
                 if (column.$nullable && oldValue != null) {
+                  handler.onSetNull?.call(database);
                   _onChanged(handler, null, rebuild);
-                  handler.onSetNull?.call(database, oldValue);
                 }
               },
               child: handler.getWidget(
@@ -64,7 +64,7 @@ class ColumnsListView<T extends Table, R extends DataClass>
         itemCount: columnHandlers.length,
       );
 
-  /// The on changed function to use.
+  /// Handle database changes.
   Future<void> _onChanged(
     final ColumnHandler handler,
     final Object? newValue,

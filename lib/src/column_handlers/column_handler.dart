@@ -26,12 +26,14 @@ abstract class ColumnHandler<T extends Object> {
   /// title case.
   final String? title;
 
-  /// The function to call if [value] gets set to `null`.
+  /// The function to call before [value] gets set to `null`.
+  ///
+  /// When [onSetNull] gets called, [value] is guaranteed to be in a non-null
+  /// state.
   ///
   /// This is useful when [column] represents a foreign key, and you need to
   /// delete the other side of a one-to-one relationship.
-  final Future<void> Function(GeneratedDatabase database, T oldValue)?
-      onSetNull;
+  final Future<void> Function(GeneratedDatabase database)? onSetNull;
 
   /// Get the appropriate title.
   String getTitle() => title ?? column.name.titleCase;
