@@ -5,6 +5,8 @@ import '../types.dart';
 import 'column_handler.dart';
 
 /// A column handler for a [String] [value].
+///
+/// You can pass a [validator] to control what values are accepted.
 class StringColumnHandler extends ColumnHandler<String> {
   /// Create an instance.
   StringColumnHandler({

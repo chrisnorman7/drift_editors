@@ -6,6 +6,12 @@ import '../drift_editor_tabbed_scaffold_tab.dart';
 import '../widgets/columns_list_view.dart';
 
 /// A tabbed drift editor.
+///
+/// This widget lets you to separate your row settings into difference [tabs].
+///
+/// The code will automatically generate [TabbedScaffoldTab]s based on [tabs],
+/// but you can mix in tabs you have designed yourself with [leadingTabs] and
+/// [trailingTabs].
 class DriftEditorTabbedScaffold<T extends Table, R extends DataClass>
     extends StatelessWidget {
   /// Create an instance.
@@ -39,10 +45,10 @@ class DriftEditorTabbedScaffold<T extends Table, R extends DataClass>
   /// The function to call when the row has changed.
   final VoidCallback? onChanged;
 
-  /// A list of tabs to show before the rendered ones.
+  /// A list of tabs to show before [tabs] have been rendered.
   final List<TabbedScaffoldTab> leadingTabs;
 
-  /// A list of tabs to show after the rendered tabs.
+  /// A list of tabs to show after [tabs] have been rendered.
   final List<TabbedScaffoldTab> trailingTabs;
 
   /// Build the widget.

@@ -4,9 +4,14 @@ import 'package:flutter/material.dart' hide Row, Table;
 
 import '../column_handlers/aggregate_column_handler.dart';
 import '../constants.dart';
+import '../screens/../drift_editor_tabbed_scaffold_tab.dart';
+import '../screens/drift_editor_screen.dart';
 import 'rebuildable_widget.dart';
 
 /// A list view to show some columns.
+///
+/// This widget is used by [DriftEditorScreen], and will be built from
+/// [DriftEditorTabbedScaffoldTab]s.
 class ColumnsListView<T extends Table, R extends DataClass>
     extends StatelessWidget {
   /// Create an instance.

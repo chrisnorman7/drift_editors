@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'columns_list_view.dart';
+
 /// A widget that can be quickly rebuilt.
+///
+/// This widget is used so only select columns can be redrawn in
+/// [ColumnsListView].
 class RebuildableWidget extends StatefulWidget {
   /// Create an instance.
   const RebuildableWidget({
@@ -8,7 +13,10 @@ class RebuildableWidget extends StatefulWidget {
     super.key,
   });
 
-  /// The function to call to rebuild this widget.
+  /// The function to call to build this widget.
+  ///
+  /// The `rebuild` function which is passed to the builder can be used to call
+  /// `setState` for this widget.
   final Widget Function(BuildContext builderContext, VoidCallback rebuild)
       builder;
 

@@ -5,8 +5,12 @@ import 'package:recase/recase.dart';
 import '../constants.dart';
 import '../types.dart';
 import 'aggregate_column_handler.dart';
+import 'point_column_handler.dart';
 
 /// A class which handles a single [column].
+///
+/// If you want to handle multiple columns, override [AggregateColumnHandler]
+/// yourself. For an example, see [PointColumnHandler].
 abstract class ColumnHandler<T extends Object>
     extends AggregateColumnHandler<T> {
   /// Create an instance.

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart' hide Row, Table;
 import '../column_handlers/aggregate_column_handler.dart';
 import '../widgets/columns_list_view.dart';
 
-/// A screen to edit any table.
+/// A screen to edit a row, given a suitable [tableInfo].
 class DriftEditorScreen<T extends Table, R extends DataClass>
     extends StatelessWidget {
   /// Create an instance.
@@ -33,12 +33,17 @@ class DriftEditorScreen<T extends Table, R extends DataClass>
   final TableInfo<T, R> tableInfo;
 
   /// The primary key column to use.
+  ///
+  /// This column is used when making updates to the database.
   final GeneratedColumn<int> primaryKeyColumn;
 
   /// The primary key of the row this widget will be working on.
   final int primaryKey;
 
   /// The function to call when the row has changed.
+  ///
+  /// The [onChanged] callback lets you invalidate providers, or update other
+  /// parts of your UI.
   final VoidCallback? onChanged;
 
   /// Build a widget.

@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import '../../drift_editors.dart';
 
 /// A column handler to handle a [Point] [value].
+///
+/// Instances use the [xColumn] and [yColumn] columns to build new [value]s.
 class PointColumnHandler extends AggregateColumnHandler<Point<int>> {
   /// Create an instance.
   PointColumnHandler({

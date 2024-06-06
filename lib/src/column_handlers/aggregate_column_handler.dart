@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 import '../types.dart';
+import 'column_handler.dart';
+import 'point_column_handler.dart';
 
 /// A class which allows aggregating multiple columns into a single value.
+///
+/// This is the base class for [ColumnHandler], and allows handlers like
+/// [PointColumnHandler] which affect multiple columns.
 abstract class AggregateColumnHandler<T extends Object> {
   /// Create an instance.
   AggregateColumnHandler({

@@ -87,3 +87,5 @@ I can write code like:
       loading: LoadingScreen.new,
     );
 ```
+
+If you would rather write your own screen, the [ColumnsListView] widget can be used directly.
