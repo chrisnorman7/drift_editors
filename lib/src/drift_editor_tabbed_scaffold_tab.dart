@@ -10,6 +10,9 @@ class DriftEditorTabbedScaffoldTab {
     required this.title,
     required this.icon,
     required this.columnHandlers,
+    this.actions,
+    this.floatingActionButton,
+    this.leading,
   });
 
   /// The title of this tab.
@@ -20,4 +23,13 @@ class DriftEditorTabbedScaffoldTab {
 
   /// The columns to include.
   final List<AggregateColumnHandler> columnHandlers;
+
+  /// A list of action widgets for this tab.
+  final List<Widget>? actions;
+
+  /// The floating action button to use for this tab.
+  final Widget? floatingActionButton;
+
+  /// The leading widget for this tab.
+  final Widget? leading;
 }
