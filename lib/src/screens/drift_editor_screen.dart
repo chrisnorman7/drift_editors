@@ -17,6 +17,9 @@ class DriftEditorScreen<T extends Table, R extends DataClass>
     required this.primaryKeyColumn,
     required this.primaryKey,
     this.onChanged,
+    this.actions = const [],
+    this.floatingActionButton,
+    this.leading,
     super.key,
   });
 
@@ -46,6 +49,15 @@ class DriftEditorScreen<T extends Table, R extends DataClass>
   /// parts of your UI.
   final VoidCallback? onChanged;
 
+  /// The actions to show.
+  final List<Widget> actions;
+
+  /// The floating action button to use.
+  final Widget? floatingActionButton;
+
+  /// The leading widget to use.
+  final Widget? leading;
+
   /// Build a widget.
   @override
   Widget build(final BuildContext context) => SimpleScaffold(
@@ -58,5 +70,8 @@ class DriftEditorScreen<T extends Table, R extends DataClass>
           primaryKey: primaryKey,
           onChanged: onChanged,
         ),
+        actions: actions,
+        floatingActionButton: floatingActionButton,
+        leading: leading,
       );
 }

@@ -1,6 +1,6 @@
 name: drift_editors
 description: "Support for dynamically creating screens to edit Drift models."
-version: 0.0.1
+version: 0.1.0
 homepage: https://github.com/chrisnorman7/drift_editors
 
 environment:
