@@ -1,5 +1,5 @@
 name: drift_editors
-version: 0.2.0
+version: 0.3.0
 description: "Support for dynamically creating screens to edit Drift models."
 homepage: https://github.com/chrisnorman7/drift_editors
 
@@ -8,8 +8,8 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  backstreets_widgets: ^0.13.0
-  drift: ^2.18.0
+  backstreets_widgets: ^0.14.0
+  drift: ^2.19.2
   flutter:
     sdk: flutter
   recase: ^4.1.0
